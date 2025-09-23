@@ -131,4 +131,4 @@ Busca la línea NTP service: active. Si dice "active", los relojes están sincr
 
 Nuestro taller está impecable, las herramientas están listas y tenemos acceso a todos los materiales. Ahora que la preparación está completa, estamos listos para salir del taller y empezar a trabajar en el terreno real.
 
-### Es hora de pasar al [[Modulo 2 - El Terreno y los Planos (Particionado y Formateo)]] 
+### Es hora de pasar al [[Módulo 2 - El Terreno y los Planos (Particionado y Formateo)]] 

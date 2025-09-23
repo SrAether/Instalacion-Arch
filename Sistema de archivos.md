@@ -1,0 +1,5 @@
+Una vez que hemos dividido nuestro terreno en particiones (habitaciones), necesitamos un sistema para organizar todo lo que guardaremos dentro. Si simplemente arrojáramos los archivos, sería un caos. Un **sistema de archivos** (_file system_) es precisamente ese sistema de organización.
+
+Cuando "formateamos" una partición, lo que hacemos es instalarle este "mobiliario": un conjunto de reglas y estructuras lógicas (como estanterías, cajones y etiquetas) que le indican al sistema operativo cómo almacenar, encontrar y gestionar los datos. Sin un sistema de archivos, una partición es solo un espacio en blanco, inutilizable.
+
+Existen distintos sistemas de archivos, cada uno con sus características. Por ejemplo, la partición EFI debe usar `FAT32` porque es el estándar que [[UEFI]] entiende. Para nuestro sistema principal, elegiremos [[Btrfs]] por sus capacidades avanzadas.

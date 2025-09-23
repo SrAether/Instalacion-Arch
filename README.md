@@ -194,7 +194,7 @@ cd Instalacion-Arch
 ### 3️⃣ **Sigue el Curso**
 1. 📖 Comienza con el [Módulo 0](./Módulo%200.md) para entender los fundamentos
 2. 🛠️ Continúa con el [Módulo 1](./Módulo%201%20-%20El%20Taller%20Temporal%20(El%20entorno%20en%20vivo).md) para preparar el entorno
-3. 🗺️ Procede al [Módulo 2](./Modulo%202%20-%20El%20Terreno%20y%20los%20Planos%20(Particionado%20y%20Formateo).md) para el particionado
+3. 🗺️ Procede al [Módulo 2](Módulo%202%20-%20El%20Terreno%20y%20los%20Planos%20(Particionado%20y%20Formateo).md) para el particionado
 4. ⚡ Usa la [Guía Paso a Paso](./Instalación%20paso%20a%20paso.md) como referencia rápida
 
 ## 🤝 Contribuciones
