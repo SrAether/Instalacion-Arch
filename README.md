@@ -81,7 +81,7 @@ La mayoría de los usuarios interactúan con la tecnología como **pasajeros**. 
 - Formateo de sistemas de archivos (ext4, FAT32)
 - Configuración y activación de SWAP
 
-### 🏗️ Fase 3: Los Cimientos (Instalación del Sistema Base)
+### 🏗️ Módulo 3: Los Cimientos (Instalación del Sistema Base)
 **Construcción del sistema core**
 - Montaje de particiones en la estructura correcta
 - Uso de `pacstrap` para instalar el sistema base
@@ -89,7 +89,7 @@ La mayoría de los usuarios interactúan con la tecnología como **pasajeros**. 
 - Generación del archivo `fstab` para montaje automático
 - Preparación para la configuración interna
 
-### ⚙️ Fase 4: Cableado y Tuberías (Configuración en Chroot)
+### ⚙️ Módulo 4: Cableado y Tuberías (Configuración en Chroot)
 **Configuración interna del sistema**
 - Entrada al entorno chroot
 - Configuración de zona horaria y localización
@@ -98,21 +98,21 @@ La mayoría de los usuarios interactúan con la tecnología como **pasajeros**. 
 - Creación de usuarios y configuración de contraseñas
 - Configuración de sudo y permisos
 
-### 🚪 Fase 5: La Puerta Principal (Gestor de Arranque)
+### 🚪 Módulo 5: La Puerta Principal (Gestor de Arranque)
 **Instalación y configuración de GRUB**
 - Instalación de GRUB para sistemas UEFI
 - Configuración del cargador de arranque
 - Creación de entradas de arranque
 - Verificación de la configuración
 
-### 🏡 Fase 6: La Mudanza (Finalización)
+### 🏡 Módulo 6: La Mudanza (Finalización)
 **Preparación para el primer arranque**
 - Habilitación de servicios esenciales
 - Verificación de configuraciones
 - Desmontaje seguro del sistema
 - Primer arranque del sistema instalado
 
-### 🎨 Fase 7: La Decoración (Entorno de Escritorio)
+### 🎨 Módulo 7: La Decoración (Entorno de Escritorio)
 **Personalización y uso cotidiano**
 - Instalación de servidores gráficos (X.Org/Wayland)
 - Configuración de drivers de video
