@@ -4,13 +4,7 @@
 > 
 > 🧭 **Con navegación inteligente y estructura interconectada para una experiencia de aprendizaje fluida**
 
-[![Arch Li### 3️⃣ **Sigue el Curso**
-1. 📖 Comienza con el [Módulo 0](./Módulo%200.md) para entender los fundamentos
-2. 🛠️ Continúa con el [Módulo 1](./Módulo%201%20-%20El%20Taller%20Temporal%20(El%20entorno%20en%20vivo).md) para preparar el entorno
-3. 🗺️ Procede al [Módulo 2](./Modulo%202%20-%20El%20Terreno%20y%20los%20Planos%20(Particionado%20y%20Formateo).md) para el particionado
-4. ⚡ Usa la [Guía Paso a Paso](./Instalación%20paso%20a%20paso.md) como referencia rápida
-
-💡 **Tip**: Si usas Obsidian, aprovecha la **vista de grafo** para visualizar las conexiones entre todos los conceptos y la **navegación por enlaces** para explorar temas relacionados de forma natural.https://img.shields.io/badge/Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://archlinux.org/)
+[![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://archlinux.org/)
 [![GNU/Linux](https://img.shields.io/badge/GNU%2FLinux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://www.gnu.org/)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
@@ -143,13 +137,13 @@ Cada guía incluye:
 - **Conceptos Clave**: UEFI, particiones GPT, sistemas de archivos
 - **Usuarios y Permisos**: root, sudo, grupos de usuarios
 
-### � **Sistema de Navegación Inteligente**
+### 🔗 **Sistema de Navegación Inteligente**
 - **Enlaces Bidireccionales**: Navega fluidamente entre módulos y conceptos relacionados
 - **Referencias Cruzadas**: Cada herramienta y concepto está conectado con su contexto de uso
 - **Estructura Obsidian**: Optimizado para Obsidian con enlaces internos y vista de grafo
 - **Navegación Contextual**: Enlaces relacionados al final de cada módulo y concepto
 
-### �🔍 Guía de Resolución de Problemas
+### 🔍 Guía de Resolución de Problemas
 - Problemas comunes durante la instalación
 - Diagnostico de hardware y conectividad
 - Recuperación del sistema y troubleshooting
@@ -217,8 +211,10 @@ cd Instalacion-Arch
 ### 3️⃣ **Sigue el Curso**
 1. 📖 Comienza con el [Módulo 0](./Módulo%200.md) para entender los fundamentos
 2. 🛠️ Continúa con el [Módulo 1](./Módulo%201%20-%20El%20Taller%20Temporal%20(El%20entorno%20en%20vivo).md) para preparar el entorno
-3. 🗺️ Procede al [Módulo 2](Módulo%202%20-%20El%20Terreno%20y%20los%20Planos%20(Particionado%20y%20Formateo).md) para el particionado
+3. 🗺️ Procede al [Módulo 2](./Módulo%202%20-%20El%20Terreno%20y%20los%20Planos%20(Particionado%20y%20Formateo).md) para el particionado
 4. ⚡ Usa la [Guía Paso a Paso](./Instalación%20paso%20a%20paso.md) como referencia rápida
+
+💡 **Tip**: Si usas Obsidian, aprovecha la **vista de grafo** para visualizar las conexiones entre todos los conceptos y la **navegación por enlaces** para explorar temas relacionados de forma natural.
 
 ## 🤝 Contribuciones
 
