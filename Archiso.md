@@ -20,3 +20,10 @@ El objetivo principal de `archiso` es proporcionar todas las herramientas necesa
 - **Instalar el Sistema Base:** La herramienta más importante, `pacstrap`, se ejecuta desde `archiso` para descargar e instalar el esqueleto de Arch Linux en el disco duro.
 
 `Archiso` es el entorno de arranque en vivo que actúa como la base de operaciones para toda la instalación. Es el espacio seguro y equipado desde el cual, como un artesano, construyes y configuras tu sistema Arch Linux pieza por pieza.
+
+---
+### Enlaces Relacionados
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Configuración inicial del entorno archiso
+- [[Usuario root]] - Cuenta de administrador en el entorno archiso
+- [[iwctl]] - Herramienta de red incluida en archiso
+- [[Pacstrap]] - Herramienta de instalación que se ejecuta desde archiso

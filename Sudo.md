@@ -28,3 +28,8 @@ Al descomentar (quitarle el `#` del inicio) esta línea, le estamos diciendo al 
 - **`ALL`**: Puede ejecutar cualquier comando.
 
 Esta es la configuración estándar que le otorga a los usuarios administrativos la capacidad de usar `sudo` para gestionar el sistema de forma segura. Es el paso formal que convierte a un simple "inquilino" en un "administrador de confianza".
+
+---
+### Enlaces Relacionados
+- [[Usuario root]] - El superusuario del sistema y por qué no usarlo directamente
+- [[Módulo 3 - Los Cimientos (Instalación del Sistema Base)]] - Configuración de sudo durante la instalación

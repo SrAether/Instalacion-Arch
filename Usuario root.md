@@ -12,5 +12,10 @@ En términos técnicos, `root` es el **superusuario**, con el identificador de u
 ### El Gran Poder Conlleva una Gran Responsabilidad
 Operar directamente como `root` para las tareas cotidianas es como caminar por la calle con un maletín nuclear activo. Es innecesariamente peligroso. Un simple error tipográfico en un comando, como `rm -rf /` en lugar de `rm -rf ./`, podría borrar todo el sistema operativo sin ninguna advertencia.
 Por esta razón, la filosofía de Linux nos enseña a no iniciar sesión como `root` de forma habitual. Es un poder que se reserva para tareas administrativas específicas y deliberadas.
+---
+### Enlaces Relacionados
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Uso del usuario root en el entorno de instalación
+- [[Sudo]] - Herramienta para usar privilegios de root de forma segura
+
 ### [[Sudo]]: Pidiendo Prestado el Poder del Arquitecto
 Entonces, ¿cómo realizamos tareas que requieren privilegios elevados? La respuesta es el comando **`sudo`** (**_S_** uper **_u_** ser **_Do_**).

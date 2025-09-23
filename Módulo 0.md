@@ -289,3 +289,9 @@ Fueron horas de leer documentación, de enfrentarme a una pantalla negra con un 
 Aquí reside la magia de Arch, guiada por su filosofía **"KISS" (Keep It Simple, Stupid)**. Esto no significa "fácil", sino "libre de complejidad innecesaria". Arch te entrega una base mínima y cada componente, desde el entorno de escritorio hasta la utilidad más pequeña, es una elección consciente. El sistema solo tiene lo que tú quieres que tenga. Por eso he elegido Arch para esta presentación: es la herramienta de aprendizaje perfecta. Su instalación no es un simple asistente de "siguiente, siguiente, finalizar"; es una lección interactiva de la anatomía de cualquier sistema GNU/Linux. Nos obliga a entender cada pieza para poder ensamblarla. Al final del proceso, no solo te habrás sentado en el asiento del piloto que te prometí al principio; habrás construido el vehículo con tus propias manos. Ese conocimiento es el verdadero objetivo de hoy.
 ### Es momento de entender la estructura de este curso [[Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo]]
 
+---
+### Enlaces Relacionados
+- [[Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo]] - Visión general del curso completo
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Siguiente paso: preparación del entorno
+- [[Virtualizadores Computadoras dentro de tu computadora]] - Opciones de virtualización para practicar
+

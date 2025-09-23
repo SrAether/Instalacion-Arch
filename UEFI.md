@@ -11,3 +11,8 @@ En las guías de instalación proporcionadas, se insiste mucho en verificar que 
 2. **Estándar de la Industria:** Prácticamente todas las computadoras modernas utilizan UEFI. Al instalar tu sistema en este modo, te aseguras de que sea compatible con el hardware actual y puedas aprovechar sus ventajas.
 3. **Requisito para Virtualización:** Al crear máquinas virtuales, tanto en VirtualBox como en Hyper-V, se te da la opción de habilitar EFI. Para sistemas operativos actuales como Arch Linux, marcar esta opción es indispensable para que la máquina virtual se comporte como un PC moderno y el sistema se instale correctamente. En el caso de Hyper-V, por ejemplo, se elige la **"Generación 2"** de máquinas virtuales, que utiliza firmware UEFI por defecto.
 UEFI es el **firmware de arranque estándar para el hardware actual**. Asegurarte de que tanto tu entorno de instalación como tu sistema final lo utilicen es como construir tu casa sobre cimientos modernos y sólidos: garantiza que todo funcione de manera correcta, segura y eficiente.
+
+---
+### Enlaces Relacionados
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Verificación del modo UEFI durante la preparación
+- [[Módulo 2 - El Terreno y los Planos (Particionado y Formateo)]] - Creación de partición EFI para sistemas UEFI

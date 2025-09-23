@@ -32,6 +32,11 @@ El proceso es una conversación directa con tu hardware de red. Aquí te guiaré
     ping archlinux.org
     ```
     Presiona `Ctrl + C` para detener el ping.
+
+---
+### Enlaces Relacionados
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Configuración de conexión a internet en la instalación
+
 ---
 
 ### Ejemplo Práctico: Conectando a la Red "MiWifi"

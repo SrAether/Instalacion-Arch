@@ -1,4 +1,13 @@
-Hemos completado la preparación en nuestro taller temporal. Ahora, nos ponemos el casco y salimos al terreno: nuestro disco duro. En este momento, es solo una parcela de tierra vacía y sin definir.
+Hemos completado la preparación en nuestro taller temporal. Ahora, nos ponemos el casco y salimos al terreno: nuestr**Ahora, es el momento de llamar al equipo de construcción en el [[Módulo 3 - Los Cimientos (Instalación del Sistema Base)]].**
+
+---
+### Enlaces Relacionados
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Módulo anterior: preparación del entorno
+- [[Módulo 3 - Los Cimientos (Instalación del Sistema Base)]] - Siguiente paso: instalación del sistema base
+- [[cfdisk]] - Herramienta principal de particionado utilizada
+- [[UEFI]] - Sistema de arranque que requiere partición EFI
+- [[Btrfs]] - Sistema de archivos moderno utilizado
+- [[Tabla de particones]] - Conceptos sobre esquemas de particionado disco duro. En este momento, es solo una parcela de tierra vacía y sin definir.
 Nuestro trabajo en esta fase se divide en dos grandes tareas de arquitectura y cimentación:
 1. **Dibujar los Planos (Particionado):** Usaremos nuestra herramienta de arquitecto (cfdisk) para trazar líneas en el terreno, dividiéndolo en "habitaciones" funcionales. Cada habitación será una **partición** con un propósito específico: la entrada principal, los cimientos, las áreas comunes, etc.
 2. **Preparar la Tierra (Formateo):** Una vez que los planos están dibujados, no podemos construir directamente sobre la tierra. Debemos prepararla: verter el concreto para el piso, preparar el suelo para el jardín. Esto es el **formateo**. Le damos a cada habitación (partición) un "sistema de archivos" para que pueda almacenar datos de forma organizada.

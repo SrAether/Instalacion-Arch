@@ -20,3 +20,8 @@ Analicemos sus componentes:
 - **`nano`**: Un editor de texto simple y fácil de usar en la terminal. Se incluye para poder editar archivos de configuración inmediatamente después de la instalación.
 - **`networkmanager`**: Es el servicio que gestionará tus conexiones de red (tanto cableadas como Wi-Fi) en el sistema ya instalado, facilitando la conexión a internet después del primer reinicio.
 Una vez que `pacstrap` termina su trabajo, los cimientos de tu sistema Arch Linux están firmemente asentados en el disco duro, listos para que entres (mediante `arch-chroot`) a configurar el "cableado y las tuberías".
+
+---
+### Enlaces Relacionados
+- [[Módulo 3 - Los Cimientos (Instalación del Sistema Base)]] - Uso de pacstrap en la instalación
+- [[Módulo 1 - El Taller Temporal (El entorno en vivo)]] - Preparación de internet necesaria para pacstrap
