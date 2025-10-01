@@ -1,4 +1,4 @@
-No todo el mobiliario es igual. Mientras que `ext4` es como una estantería de madera clásica (robusta y fiable), `Btrfs` (_B-Tree File System_) es un sistema de almacenamiento modular e inteligente, diseñado para la flexibilidad y la seguridad.
+No todo el mobiliario es igual. Mientras que [[ext4]] es como una estantería de madera clásica (robusta y fiable), `Btrfs` (_B-Tree File System_) es un sistema de almacenamiento modular e inteligente, diseñado para la flexibilidad y la seguridad.
 
 Sus características clave son:
 - **Copy-on-Write (CoW):** `Btrfs` nunca modifica los datos "en su sitio". Cuando se cambia un archivo, primero hace una copia en un nuevo lugar, realiza la modificación y, solo si tiene éxito, actualiza los punteros. Esto lo hace increíblemente resistente a la corrupción de datos por fallos de energía.

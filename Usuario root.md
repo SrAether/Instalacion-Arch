@@ -1,4 +1,7 @@
 En nuestro viaje para convertirnos en pilotos y artesanos de nuestro universo digital, debemos conocer a la figura más importante y poderosa de todas: el usuario **`root`**. No es simplemente una cuenta más; es la personificación del control absoluto sobre el sistema operativo.
+
+> **Contexto:** Para comprender mejor los diferentes tipos de usuarios en Linux y cómo root se relaciona con ellos, consulta: **[[Usuarios en Linux]]**
+
 ### ¿Qué es `root`?
 Imagina que el sistema operativo que hemos construido es un gran edificio. Un usuario normal, como el que creamos para nuestro día a día, es como el inquilino de un apartamento. Tiene la llave de su propia casa (`/home/usuario`), puede decorar sus habitaciones, mover sus muebles y usar los servicios comunes del edificio. Sin embargo, no puede alterar la estructura, cambiar la plomería general ni abrir la puerta del vecino. Su poder está limitado a su propio espacio, lo cual es una medida de seguridad fundamental.
 El usuario **`root`**, en cambio, no es un inquilino. **Es el arquitecto y el conserje, todo en uno, con la llave maestra del edificio entero.**

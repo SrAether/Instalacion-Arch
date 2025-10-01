@@ -13,12 +13,54 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "firewall.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "firewall"
+            }
+          },
+          {
+            "id": "1057f962840c633a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo"
+            }
+          },
+          {
+            "id": "0b19c115939fd92c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "git.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "git"
+            }
+          },
+          {
+            "id": "d271c737a0e35f6b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "genfstab.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "genfstab"
             }
           },
           {
@@ -109,7 +151,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "systemctl",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -134,7 +176,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 505.51240158081055
+    "width": 571.5
   },
   "right": {
     "id": "f9047ab2bb7cbdc2",
@@ -240,39 +282,39 @@
   },
   "active": "ec5bdb1febde8d70",
   "lastOpenFiles": [
-    "Particiones y sus Tipos.md",
-    "Sistema de archivos.md",
-    "README.md",
-    "Usuario root.md",
-    "Sudo.md",
-    "iwctl.md",
-    "Módulo 2 - El Terreno y los Planos (Particionado y Formateo).md",
-    "Módulo 3 - Los Cimientos (Instalación del Sistema Base).md",
-    "Tabla de particones.md",
-    "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo.md",
-    "Concepto - Particiones y sus Tipos.md",
     "Btrfs.md",
-    "UEFI.md",
+    "systemctl.md",
+    "comm.md",
+    "wc.md",
+    "cut.md",
+    "tail.md",
+    "head.md",
+    "nohup.md",
+    "pgrep.md",
+    "ss.md",
+    "lsblk.md",
+    "free.md",
+    "mount.md",
+    "jobs.md",
+    "kill.md",
+    "htop.md",
+    "top.md",
+    "file.md",
+    "du.md",
+    "sort.md",
+    "firewall.md",
+    "scp.md",
+    "cron.md",
+    "Usuarios en Linux.md",
+    "Módulo 2 - El Terreno y los Planos (Particionado y Formateo).md",
+    "Módulo 1 - El Taller Temporal (El entorno en vivo).md",
     "Sin título.canvas",
     "Sin título 1.base",
     "Sin título.base",
-    "Módulo 0.md",
-    "cfdisk.md",
-    "Pacstrap.md",
-    "Instalación paso a paso.md",
     "LICENSE",
-    "Módulo 1 - El Taller Temporal (El entorno en vivo).md",
-    "DIAPOS Cuerpo.md",
-    "Diapos Concepto.md",
     "Exportaciones/Virtualización en windows con VirtualBox.pdf",
     "Exportaciones/Virtualización en windows con Hyper-V.pdf",
     "Exportaciones/Virtualización en Linux con QEMU.pdf",
-    "Excalidraw/Drawing 2025-09-04 08.27.34.excalidraw.md",
-    "Virtualizadores Computadoras dentro de tu computadora.md",
-    "Virtualización en Linux con QEMU.md",
-    "Virtualización en windows con VirtualBox.md",
-    "Virtualización en windows con Hyper-V.md",
-    "Archiso.md",
     "Sin título 2.base",
     "Excalidraw",
     "Exportaciones",

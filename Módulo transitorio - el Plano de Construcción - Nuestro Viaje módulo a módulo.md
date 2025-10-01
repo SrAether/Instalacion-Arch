@@ -43,7 +43,7 @@ graph TD
 **La Analogía:** Con los planos listos y el terreno preparado, llega el equipo de construcción. pacstrap es la grúa que instala los cimientos de nuestra casa. Descarga e instala el corazón del sistema (el kernel de Linux), las paredes maestras (los paquetes base) y las herramientas fundamentales. Al terminar, usamos genfstab para crear la "dirección postal" oficial, asegurando que el sistema siempre sepa dónde está cada habitación.
 - **Herramientas Clave:** pacstrap (la grúa), genfstab (el registro de la propiedad).
 ---
-#### **Fase 4: Amueblando desde Dentro (Configuración en Chroot)**
+#### **[[Módulo 4 - Amueblando desde Dentro (Configuración en Chroot)]]**
 **La Analogía:** Este es el momento mágico en que entramos por primera vez a nuestra casa a medio construir. El comando chroot nos transporta dentro del nuevo sistema. Desde aquí, instalamos el cableado y las tuberías: definimos su ubicación en el mundo (zona horaria), el idioma que se hablará (locales), le damos un nombre a la casa (hostname) y forjamos las primeras llaves para el administrador (root) y para nosotros (nuestro usuario).
 - **Herramientas Clave:** arch-chroot, ln -sf, locale-gen, passwd, useradd.
 ---
