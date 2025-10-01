@@ -235,24 +235,49 @@ rsync -av --bwlimit=2000 --progress \
 ### **Script de Backup Incremental**
 
 ```bash
-# Backup incremental simple con rsync
+#!/bin/bash
+# Script de backup incremental con rsync
 
-# Variables básicas
-SOURCE="/home/usuario"
-DEST="/backup"
+BACKUP_SOURCE="/home/usuario"
+BACKUP_DEST="/backup"
 DATE=$(date +%Y%m%d)
+CURRENT_BACKUP="$BACKUP_DEST/current"
+DATED_BACKUP="$BACKUP_DEST/backup-$DATE"
 
-# Crear backup incremental
-echo "Iniciando backup..."
-rsync -av --delete "$SOURCE/" "$DEST/backup-$DATE/"
+# Función de logging
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "/var/log/backup.log"
+}
 
-# Verificar resultado
-if [[ $? -eq 0 ]]; then
-    echo "✅ Backup completado en $DEST/backup-$DATE/"
-else
-    echo "❌ Backup falló"
-fi
-```
+# Crear backup incremental usando hard links
+create_incremental_backup() {
+    log "Iniciando backup incremental..."
+    
+    # Si existe backup actual, usar como base para hard links
+    if [[ -d "$CURRENT_BACKUP" ]]; then
+        rsync -av --delete --link-dest="$CURRENT_BACKUP" \
+            "$BACKUP_SOURCE/" "$DATED_BACKUP/" 2>&1 | tee -a "/var/log/backup.log"
+    else
+        rsync -av "$BACKUP_SOURCE/" "$DATED_BACKUP/" 2>&1 | tee -a "/var/log/backup.log"
+    fi
+    
+    if [[ $? -eq 0 ]]; then
+        # Actualizar enlace al backup actual
+        rm -f "$CURRENT_BACKUP"
+        ln -s "$DATED_BACKUP" "$CURRENT_BACKUP"
+        log "Backup completado exitosamente en $DATED_BACKUP"
+    else
+        log "ERROR: Backup falló"
+        return 1
+    fi
+}
+
+# Limpiar backups antiguos (mantener últimos 7)
+cleanup_old_backups() {
+    log "Limpiando backups antiguos..."
+    find "$BACKUP_DEST" -maxdepth 1 -name "backup-*" -type d -mtime +7 -exec rm -rf {} \;
+    log "Limpieza completada"
+}
 
 # Verificar espacio disponible
 check_disk_space() {
@@ -310,18 +335,24 @@ handle_conflicts() {
     echo "Remoto: $CONFLICT_DIR/${file}.remote"
 }
 
-# Sincronización bidireccional simple
-echo "=== Sincronización Bidireccional ==="
-
-# Enviar cambios locales
-echo "Enviando cambios locales..."
-rsync -av local/ servidor:remoto/
-
-# Recibir cambios remotos
-echo "Recibiendo cambios remotos..."
-rsync -av servidor:remoto/ local/
-
-echo "Sincronización completada"
+# Sincronización inteligente
+smart_sync() {
+    echo "=== Sincronización Bidireccional ==="
+    
+    # Fase 1: Enviar cambios locales más recientes
+    echo "Enviando cambios locales..."
+    rsync -avu "$LOCAL_DIR/" "$REMOTE_HOST:$REMOTE_DIR/"
+    
+    # Fase 2: Recibir cambios remotos más recientes
+    echo "Recibiendo cambios remotos..."
+    rsync -avu "$REMOTE_HOST:$REMOTE_DIR/" "$LOCAL_DIR/"
+    
+    # Fase 3: Verificar sincronización
+    echo "Verificando sincronización..."
+    local_checksum=$(find "$LOCAL_DIR" -type f -exec md5sum {} \; | sort)
+    remote_checksum=$(ssh "$REMOTE_HOST" "find $REMOTE_DIR -type f -exec md5sum {} \;" | sort)
+    
+    if [[ "$local_checksum" == "$remote_checksum" ]]; then
         echo "✓ Sincronización completada exitosamente"
     else
         echo "⚠ Existen diferencias - revisar manualmente"

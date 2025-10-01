@@ -243,22 +243,31 @@ ps -eo pid,ppid,pgid,sid,tty,comm
 ### **Scripts de Monitoreo**
 
 ```bash
-# Monitor simple de procesos
+#!/bin/bash
+# Monitor de procesos en tiempo real
 
-echo "=== Monitor de Procesos - $(date) ==="
+monitor_processes() {
+    local interval=${1:-5}
+    local top_count=${2:-10}
+    
+    while true; do
+        clear
+        echo "=== Monitor de Procesos - $(date) ==="
+        echo
+        echo "=== TOP $top_count por CPU ==="
+        ps aux --sort=-%cpu | head -$((top_count + 1))
+        echo
+        echo "=== TOP $top_count por Memoria ==="
+        ps aux --sort=-%mem | head -$((top_count + 1))
+        echo
+        echo "=== Procesos Zombie ==="
+        ps aux | awk '$8 ~ /^Z/ {print $2, $11}' | head -5
+        
+        sleep $interval
+    done
+}
 
-# Top 10 procesos por CPU
-echo "=== TOP 10 por CPU ==="
-ps aux --sort=-%cpu | head -11
-
-# Top 10 procesos por Memoria
-echo "=== TOP 10 por Memoria ==="
-ps aux --sort=-%mem | head -11
-
-# Buscar procesos zombie
-echo "=== Procesos Zombie ==="
-ps aux | awk '$8 ~ /^Z/ {print $2, $11}'
-```
+# Función para análisis de carga por usuario
 analyze_user_load() {
     echo "=== Carga por Usuario ==="
     ps aux | awk '

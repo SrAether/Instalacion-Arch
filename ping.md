@@ -276,42 +276,48 @@ connect: Network is unreachable
 
 #### **Script de Verificación de Conectividad**
 ```bash
-# Verificación simple de conectividad
+#!/bin/bash
+# connectivity_check.sh
 
 echo "=== Verificación de Conectividad ==="
 
-# Verificar conexiones básicas
-echo "Probando loopback:"
-ping -c 2 127.0.0.1 && echo "✅ Loopback OK" || echo "❌ Loopback FALLO"
+# Función para probar conectividad
+test_ping() {
+    local host=$1
+    local name=$2
+    
+    if ping -c 2 -W 3 "$host" >/dev/null 2>&1; then
+        echo "✅ $name: OK"
+        return 0
+    else
+        echo "❌ $name: FALLO"
+        return 1
+    fi
+}
 
-echo "Probando gateway:"
-ping -c 2 $(ip route | grep default | awk '{print $3}') && echo "✅ Gateway OK" || echo "❌ Gateway FALLO"
+# Pruebas en orden lógico
+test_ping "127.0.0.1" "Loopback local"
+test_ping "$(ip route | grep default | awk '{print $3}')" "Gateway"
+test_ping "8.8.8.8" "DNS externo (Google)"
+test_ping "1.1.1.1" "DNS externo (Cloudflare)"
+test_ping "google.com" "Resolución DNS"
+test_ping "archlinux.org" "Arch Linux"
 
-echo "Probando DNS:"
-ping -c 2 8.8.8.8 && echo "✅ DNS OK" || echo "❌ DNS FALLO"
-
-echo "Probando sitio web:"
-ping -c 2 google.com && echo "✅ Web OK" || echo "❌ Web FALLO"
+echo "=== Verificación completa ==="
 ```
 
 #### **Monitor de Latencia**
 ```bash
-# Monitor simple de latencia
+#!/bin/bash
+# latency_monitor.sh
 
-HOST="8.8.8.8"
-echo "Monitoreando latencia a $HOST"
+HOST=${1:-8.8.8.8}
+THRESHOLD=${2:-100}  # ms
+
+echo "Monitoreando latencia a $HOST (umbral: ${THRESHOLD}ms)"
 echo "Presiona Ctrl+C para parar"
 
-# Monitorear y filtrar latencias altas
 ping "$HOST" | while read line; do
-    if echo "$line" | grep -q "time="; then
-        latency=$(echo "$line" | grep -o 'time=[0-9.]*' | cut -d= -f2)
-        if (( $(echo "$latency > 100" | bc -l) )); then
-            echo "$(date): LATENCIA ALTA: ${latency}ms"
-        fi
-    fi
-done
-```
     if echo "$line" | grep -q "time="; then
         latency=$(echo "$line" | grep -oE "time=[0-9.]+" | cut -d= -f2)
         timestamp=$(date "+%Y-%m-%d %H:%M:%S")

@@ -360,16 +360,31 @@ ssh servidor "sudo reboot"
 ### **Scripts de Administración**
 
 ```bash
-# Monitoreo simple de servidores
+#!/bin/bash
+# Script de monitoreo de múltiples servidores
 
-# Verificar un servidor
-echo "=== Verificando servidor ==="
-ssh servidor "uptime && free -h && df -h"
+SERVERS=(
+    "web1.empresa.com"
+    "web2.empresa.com"
+    "db.empresa.com"
+)
 
-# Verificar múltiples servidores
-for server in web1 web2 db; do
-    echo "--- $server ---"
-    ssh $server "hostname && uptime"
+check_server() {
+    local server="$1"
+    echo "=== Verificando $server ==="
+    
+    ssh "$server" "
+        echo 'Uptime:' && uptime
+        echo 'Memoria:' && free -h | grep Mem
+        echo 'Disco:' && df -h / | tail -1
+        echo 'Load Average:' && cat /proc/loadavg
+        echo
+    " 2>/dev/null || echo "ERROR: No se puede conectar a $server"
+}
+
+# Verificar todos los servidores
+for server in "${SERVERS[@]}"; do
+    check_server "$server"
 done
 ```
 

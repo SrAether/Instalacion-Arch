@@ -178,16 +178,19 @@ sudo crontab -e
 # Verificar carga del sistema cada hora
 0 * * * * /home/admin/scripts/check_load.sh
 
-# Ejemplo de script simple de monitoreo de disco
-cat > monitor_disk.sh << 'EOF'
+# Ejemplo de script de monitoreo de disco
+cat > /home/admin/scripts/monitor_disk.sh << 'EOF'
 #!/bin/bash
+THRESHOLD=90
 DISK_USAGE=$(df / | awk 'NR==2 {print $5}' | sed 's/%//')
-if [ $DISK_USAGE -gt 90 ]; then
-    echo "ALERTA: Disco al ${DISK_USAGE}%"
+
+if [ $DISK_USAGE -gt $THRESHOLD ]; then
+    echo "ALERTA: Uso de disco al ${DISK_USAGE}%" | mail -s "Disco Lleno" admin@ejemplo.com
+    logger "ALERTA: Uso de disco al ${DISK_USAGE}%"
 fi
 EOF
 
-chmod +x monitor_disk.sh
+chmod +x /home/admin/scripts/monitor_disk.sh
 ```
 
 ### **Backups Automatizados**

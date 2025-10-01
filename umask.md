@@ -211,21 +211,23 @@ tar czf "/backup/sistema-$(date +%Y%m%d).tar.gz" /etc /home
 ### **Script de Testing**
 
 ```bash
-# Probar diferentes valores de umask
+#!/bin/bash
+# Script para probar diferentes valores de umask
 
-echo "=== Probando umask 022 ==="
-umask 022
-touch test_022.txt
-ls -l test_022.txt
-
-echo "=== Probando umask 077 ==="
-umask 077
-touch test_077.txt
-ls -l test_077.txt
-
-# Limpiar
-rm test_*.txt
-```
+test_umask() {
+    local mask="$1"
+    local test_dir="/tmp/umask_test_$mask"
+    
+    echo "=== Probando umask $mask ==="
+    
+    # Establecer umask
+    umask "$mask"
+    
+    # Crear directorio de prueba
+    mkdir -p "$test_dir"
+    cd "$test_dir"
+    
+    # Crear archivo y directorio
     touch archivo_test.txt
     mkdir directorio_test
     

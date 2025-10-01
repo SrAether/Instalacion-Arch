@@ -269,41 +269,65 @@ ssh servidor 'cat backup.tar.gz' | gunzip | tar xf -
 ### **Script de Rotación de Logs**
 
 ```bash
-# Script simple para rotar y comprimir logs
+#!/bin/bash
+# Script para rotar y comprimir logs
 
-# Rotar un log específico
-echo "Rotando log..."
-cp /var/log/aplicacion.log /var/log/aplicacion.log.1
-> /var/log/aplicacion.log
+LOG_DIR="/var/log"
+KEEP_DAYS=30
 
-# Comprimir logs antiguos
-gzip /var/log/aplicacion.log.1
+rotate_log() {
+    local logfile="$1"
+    local basename=$(basename "$logfile")
+    
+    # Rotar logs existentes
+    for i in {9..1}; do
+        if [[ -f "${logfile}.${i}.gz" ]]; then
+            mv "${logfile}.${i}.gz" "${logfile}.$((i+1)).gz"
+        fi
+    done
+    
+    # Comprimir log actual
+    if [[ -f "${logfile}.1" ]]; then
+        gzip "${logfile}.1"
+    fi
+    
+    # Mover log actual
+    if [[ -f "$logfile" ]]; then
+        cp "$logfile" "${logfile}.1"
+        > "$logfile"  # Limpiar log actual
+    fi
+    
+    # Eliminar logs antiguos
+    find "$(dirname "$logfile")" -name "${basename}*.gz" -mtime +$KEEP_DAYS -delete
+}
 
-# Limpiar logs antiguos (más de 30 días)
-find /var/log -name "*.gz" -mtime +30 -delete
+# Rotar logs específicos
+rotate_log "/var/log/application.log"
+rotate_log "/var/log/access.log"
 ```
 
 ### **Script de Backup Automático**
 
 ```bash
-# Backup automático simple con compresión
+#!/bin/bash
+# Backup automático con compresión
 
-SOURCE="/home/usuario"
-DEST="/backup"
-DATE=$(date +%Y%m%d)
+BACKUP_SOURCE="/home/usuario"
+BACKUP_DEST="/backup"
+DATE=$(date +%Y%m%d_%H%M%S)
 
-# Crear backup comprimido
-echo "Creando backup..."
-tar czf "$DEST/backup_$DATE.tar.gz" "$SOURCE"
-
-# Verificar resultado
-if [[ $? -eq 0 ]]; then
-    echo "✅ Backup creado: backup_$DATE.tar.gz"
-    ls -lh "$DEST/backup_$DATE.tar.gz"
-else
-    echo "❌ Error al crear backup"
-fi
-```
+create_compressed_backup() {
+    local source="$1"
+    local dest="$2"
+    local filename="backup_$(basename "$source")_$DATE.tar.gz"
+    
+    echo "Creando backup de $source..."
+    tar cf - "$source" | gzip -9 > "$dest/$filename"
+    
+    if [[ $? -eq 0 ]]; then
+        echo "Backup creado: $dest/$filename"
+        ls -lh "$dest/$filename"
+    else
         echo "Error al crear backup"
         return 1
     fi
