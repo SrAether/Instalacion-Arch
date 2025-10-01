@@ -303,61 +303,41 @@ awk '{print $4}' /var/log/access.log | awk -F: '{print $2}' | sort | uniq -c | s
 ### **Script de Análisis de Logs**
 
 ```bash
-#!/bin/bash
-# Análisis completo de logs del sistema
+# Análisis simple de logs del sistema
 
-LOG_FILE="${1:-/var/log/syslog}"
-REPORT_FILE="log_report_$(date +%Y%m%d).txt"
+LOG_FILE="/var/log/syslog"
 
-generate_log_report() {
-    echo "=== REPORTE DE ANÁLISIS DE LOGS ===" > "$REPORT_FILE"
-    echo "Archivo analizado: $LOG_FILE" >> "$REPORT_FILE"
-    echo "Fecha del reporte: $(date)" >> "$REPORT_FILE"
-    echo >> "$REPORT_FILE"
-    
-    # Top 10 servicios más activos
-    echo "=== TOP 10 SERVICIOS MÁS ACTIVOS ===" >> "$REPORT_FILE"
-    awk '{print $5}' "$LOG_FILE" | sed 's/\[.*\]://' | sort | uniq -c | sort -nr | head -10 >> "$REPORT_FILE"
-    echo >> "$REPORT_FILE"
-    
-    # Errores por frecuencia
-    echo "=== ERRORES MÁS COMUNES ===" >> "$REPORT_FILE"
-    grep -i error "$LOG_FILE" | awk '{for(i=6;i<=NF;i++) printf "%s ", $i; print ""}' | sort | uniq -c | sort -nr | head -10 >> "$REPORT_FILE"
-    echo >> "$REPORT_FILE"
-    
-    # Actividad por hora
-    echo "=== ACTIVIDAD POR HORA ===" >> "$REPORT_FILE"
-    awk '{print $3}' "$LOG_FILE" | awk -F: '{print $1":00"}' | sort | uniq -c | sort -k2 >> "$REPORT_FILE"
-    echo >> "$REPORT_FILE"
-    
-    # Hosts más activos (si hay logs de red)
-    echo "=== HOSTS MÁS ACTIVOS ===" >> "$REPORT_FILE"
-    grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" "$LOG_FILE" | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}" | sort | uniq -c | sort -nr | head -10 >> "$REPORT_FILE"
-    
-    echo "Reporte generado en: $REPORT_FILE"
-}
+echo "=== Análisis de Logs ==="
+echo "Archivo analizado: $LOG_FILE"
+echo
 
-generate_log_report
+# Top 10 servicios más activos
+echo "=== Servicios Más Activos ==="
+awk '{print $5}' "$LOG_FILE" | sort | uniq -c | sort -nr | head -10
+
+# Errores comunes
+echo "=== Errores Más Comunes ==="
+grep -i error "$LOG_FILE" | sort | uniq -c | sort -nr | head -5
+```
 ```
 
 ### **Script de Organización de Archivos**
 
 ```bash
-#!/bin/bash
 # Organizar archivos por diferentes criterios
 
-organize_files() {
-    local directory="$1"
-    local criteria="$2"  # size, date, type, name
-    
-    echo "=== Organizando archivos en $directory por $criteria ==="
-    
-    case "$criteria" in
-        "size")
-            echo "Archivos ordenados por tamaño:"
-            find "$directory" -type f -exec ls -lh {} \; | sort -k5 -hr | head -20
-            ;;
-        "date")
+echo "=== Archivos ordenados por tamaño ==="
+ls -lh | sort -k5 -hr
+
+echo "=== Archivos ordenados por fecha ==="
+ls -lt
+
+echo "=== Archivos ordenados por nombre ==="
+ls -1 | sort
+
+echo "=== Archivos ordenados por extensión ==="
+ls -1 | sort -t. -k2
+```
             echo "Archivos ordenados por fecha:"
             find "$directory" -type f -exec ls -lt {} \; | sort -k6,7 | head -20
             ;;

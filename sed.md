@@ -277,26 +277,20 @@ sed -f script.sed /var/log/application.log
 ### **Script de Configuración Automática**
 
 ```bash
-#!/bin/bash
-# Script para configurar SSH automáticamente
+# Configuración simple de SSH con sed
 
 CONFIG_FILE="/etc/ssh/sshd_config"
-BACKUP_FILE="${CONFIG_FILE}.backup.$(date +%Y%m%d)"
 
 # Crear backup
-sudo cp "$CONFIG_FILE" "$BACKUP_FILE"
+sudo cp "$CONFIG_FILE" "${CONFIG_FILE}.backup"
 
-# Configurar SSH con sed
-sudo sed -i '
-    s/#Port 22/Port 2222/
-    s/#PermitRootLogin yes/PermitRootLogin no/
-    s/#PasswordAuthentication yes/PasswordAuthentication no/
-    s/#PubkeyAuthentication yes/PubkeyAuthentication yes/
-    /^#ClientAliveInterval/a\ClientAliveInterval 300
-    /^#ClientAliveCountMax/a\ClientAliveCountMax 2
-' "$CONFIG_FILE"
+# Cambios básicos con sed
+sudo sed -i 's/#Port 22/Port 2222/' "$CONFIG_FILE"
+sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' "$CONFIG_FILE"
+sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' "$CONFIG_FILE"
 
-echo "SSH configurado. Backup guardado en: $BACKUP_FILE"
+echo "SSH configurado. Backup guardado en: ${CONFIG_FILE}.backup"
+```
 ```
 
 ## **Técnicas Avanzadas**

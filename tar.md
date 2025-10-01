@@ -298,44 +298,40 @@ tar -tzf backup.tar.gz | xargs tar -xzf backup.tar.gz
 ### **Scripts de Respaldo**
 
 ```bash
-#!/bin/bash
-# Script de respaldo automático
+# Script simple de respaldo automático
 
-FECHA=$(date +%Y%m%d_%H%M)
+FECHA=$(date +%Y%m%d)
 ORIGEN="/home/usuario"
 DESTINO="/backup"
 ARCHIVO="backup_home_$FECHA.tar.gz"
 
-# Crear respaldo con exclusiones
-tar -czf "$DESTINO/$ARCHIVO" \
-    --exclude="$ORIGEN/.cache" \
-    --exclude="$ORIGEN/.tmp" \
-    --exclude="$ORIGEN/Downloads/*.iso" \
-    "$ORIGEN"
+# Crear respaldo básico
+tar -czf "$DESTINO/$ARCHIVO" "$ORIGEN"
 
-# Verificar que se creó correctamente
+# Verificar resultado
 if [ $? -eq 0 ]; then
-    echo "Respaldo exitoso: $ARCHIVO"
-    # Eliminar respaldos antiguos (mantener 7 días)
+    echo "✅ Respaldo exitoso: $ARCHIVO"
+    # Limpiar respaldos antiguos
     find "$DESTINO" -name "backup_home_*.tar.gz" -mtime +7 -delete
 else
-    echo "Error en respaldo"
-    exit 1
+    echo "❌ Error en respaldo"
 fi
 ```
 
 ### **Respaldo Incremental**
 
 ```bash
-# Crear snapshot inicial
+# Respaldo incremental simple
+
+# Crear backup completo inicial
 tar -czf backup_full.tar.gz -g snapshot.snar /home/usuario/
 
-# Respaldos incrementales subsecuentes
+# Crear backup incremental
 tar -czf backup_incr_$(date +%Y%m%d).tar.gz -g snapshot.snar /home/usuario/
 
-# Restaurar incremental
-tar -xzf backup_full.tar.gz -g /dev/null
-tar -xzf backup_incr_20231030.tar.gz -g /dev/null
+# Restaurar
+tar -xzf backup_full.tar.gz
+tar -xzf backup_incr_20231030.tar.gz
 ```
 
 ## **Troubleshooting Común**

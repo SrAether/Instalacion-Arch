@@ -170,34 +170,20 @@ scp -o CheckHostIP=yes archivo.txt usuario@servidor:/destino/
 ### **Backup de Configuraciones**
 
 ```bash
-#!/bin/bash
-# Script de backup de configuraciones del sistema
+# Backup simple de configuraciones del sistema
 
-backup_system_configs() {
-    local backup_server="backup@192.168.1.200"
-    local backup_path="/backups/$(hostname)"
-    local timestamp=$(date +%Y%m%d_%H%M%S)
-    
-    echo "=== Backup de Configuraciones del Sistema ==="
-    echo "Servidor: $backup_server"
-    echo "Destino: $backup_path/$timestamp"
-    echo
-    
-    # Crear directorio temporal para backup
-    local temp_dir="/tmp/system_backup_$timestamp"
-    mkdir -p "$temp_dir"
-    
-    # Copiar archivos de configuración importantes
-    echo "📁 Recopilando configuraciones..."
-    
-    # Configuraciones del sistema
-    sudo cp -r /etc/pacman.conf "$temp_dir/"
-    sudo cp -r /etc/makepkg.conf "$temp_dir/"
-    sudo cp -r /etc/mkinitcpio.conf "$temp_dir/"
-    
-    # Configuraciones de red
-    sudo cp -r /etc/systemd/network/ "$temp_dir/" 2>/dev/null
-    sudo cp -r /etc/NetworkManager/ "$temp_dir/" 2>/dev/null
+BACKUP_SERVER="backup@192.168.1.200"
+TIMESTAMP=$(date +%Y%m%d)
+
+echo "=== Backup de Configuraciones del Sistema ==="
+
+# Backup directo de archivos importantes
+scp /etc/pacman.conf "$BACKUP_SERVER:/backups/$(hostname)/pacman.conf.$TIMESTAMP"
+scp /etc/fstab "$BACKUP_SERVER:/backups/$(hostname)/fstab.$TIMESTAMP"
+scp /etc/hosts "$BACKUP_SERVER:/backups/$(hostname)/hosts.$TIMESTAMP"
+
+echo "✅ Backup de configuraciones completado"
+```
     
     # Configuraciones de servicios
     sudo cp -r /etc/nginx/ "$temp_dir/" 2>/dev/null
