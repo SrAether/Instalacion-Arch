@@ -310,24 +310,18 @@ handle_conflicts() {
     echo "Remoto: $CONFLICT_DIR/${file}.remote"
 }
 
-# Sincronización inteligente
-smart_sync() {
-    echo "=== Sincronización Bidireccional ==="
-    
-    # Fase 1: Enviar cambios locales más recientes
-    echo "Enviando cambios locales..."
-    rsync -avu "$LOCAL_DIR/" "$REMOTE_HOST:$REMOTE_DIR/"
-    
-    # Fase 2: Recibir cambios remotos más recientes
-    echo "Recibiendo cambios remotos..."
-    rsync -avu "$REMOTE_HOST:$REMOTE_DIR/" "$LOCAL_DIR/"
-    
-    # Fase 3: Verificar sincronización
-    echo "Verificando sincronización..."
-    local_checksum=$(find "$LOCAL_DIR" -type f -exec md5sum {} \; | sort)
-    remote_checksum=$(ssh "$REMOTE_HOST" "find $REMOTE_DIR -type f -exec md5sum {} \;" | sort)
-    
-    if [[ "$local_checksum" == "$remote_checksum" ]]; then
+# Sincronización bidireccional simple
+echo "=== Sincronización Bidireccional ==="
+
+# Enviar cambios locales
+echo "Enviando cambios locales..."
+rsync -av local/ servidor:remoto/
+
+# Recibir cambios remotos
+echo "Recibiendo cambios remotos..."
+rsync -av servidor:remoto/ local/
+
+echo "Sincronización completada"
         echo "✓ Sincronización completada exitosamente"
     else
         echo "⚠ Existen diferencias - revisar manualmente"

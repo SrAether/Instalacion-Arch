@@ -167,97 +167,38 @@ stat -c "%n|%s|%a|%U|%G|%x|%y|%z" archivo.txt
 ### **Scripts con Formatos Personalizados**
 
 ```bash
-#!/bin/bash
-# Script para análisis detallado de archivos
+# Análisis simple de archivos con stat
 
-analyze_file() {
-    local file="$1"
-    
-    echo "=== Análisis de $file ==="
-    
-    # Información básica
-    echo "Tamaño: $(stat -c '%s' "$file") bytes ($(stat -c '%s' "$file" | numfmt --to=iec))"
-    echo "Tipo: $(stat -c '%F' "$file")"
-    echo "Permisos: $(stat -c '%a (%A)' "$file")"
-    echo "Propietario: $(stat -c '%U:%G (%u:%g)' "$file")"
-    echo "Inodo: $(stat -c '%i' "$file")"
-    echo "Enlaces: $(stat -c '%h' "$file")"
-    echo "Dispositivo: $(stat -c '%t:%T' "$file")"
-    
-    # Timestamps
-    echo "Acceso: $(stat -c '%x' "$file")"
-    echo "Modificación: $(stat -c '%y' "$file")"
-    echo "Cambio: $(stat -c '%z' "$file")"
-    
-    # Información adicional según el tipo
-    if [[ -f "$file" ]]; then
-        echo "Bloques: $(stat -c '%b' "$file")"
-        echo "Tamaño de bloque: $(stat -c '%B' "$file")"
-    fi
-    
-    if [[ -L "$file" ]]; then
-        echo "Enlace a: $(readlink "$file")"
-    fi
-    
-    echo
-}
+# Información básica de un archivo
+echo "=== Análisis de archivo ==="
+echo "Tamaño: $(stat -c '%s' archivo.txt) bytes"
+echo "Permisos: $(stat -c '%a (%A)' archivo.txt)"
+echo "Propietario: $(stat -c '%U:%G' archivo.txt)"
+echo "Modificación: $(stat -c '%y' archivo.txt)"
 
-# Usar la función
-analyze_file "/etc/passwd"
-analyze_file "/home/usuario/.bashrc"
+# Ver todos los detalles
+stat archivo.txt
 ```
 
 ### **Comparación de Archivos**
 
 ```bash
-#!/bin/bash
-# Comparar metadatos de archivos
+# Comparar metadatos básicos de archivos
 
-compare_files() {
-    local file1="$1"
-    local file2="$2"
-    
-    echo "Comparando $file1 y $file2:"
-    echo
-    
-    # Tamaños
-    local size1=$(stat -c '%s' "$file1")
-    local size2=$(stat -c '%s' "$file2")
-    echo "Tamaños: $size1 vs $size2 bytes"
-    [[ $size1 -eq $size2 ]] && echo "  ✓ Mismo tamaño" || echo "  ✗ Tamaños diferentes"
-    
-    # Permisos
-    local perm1=$(stat -c '%a' "$file1")
-    local perm2=$(stat -c '%a' "$file2")
-    echo "Permisos: $perm1 vs $perm2"
-    [[ "$perm1" == "$perm2" ]] && echo "  ✓ Mismos permisos" || echo "  ✗ Permisos diferentes"
-    
-    # Propietarios
-    local owner1=$(stat -c '%U:%G' "$file1")
-    local owner2=$(stat -c '%U:%G' "$file2")
-    echo "Propietarios: $owner1 vs $owner2"
-    [[ "$owner1" == "$owner2" ]] && echo "  ✓ Mismo propietario" || echo "  ✗ Propietarios diferentes"
-    
-    # Timestamps de modificación
-    local mtime1=$(stat -c '%Y' "$file1")
-    local mtime2=$(stat -c '%Y' "$file2")
-    echo "Última modificación:"
-    echo "  $file1: $(date -d @$mtime1)"
-    echo "  $file2: $(date -d @$mtime2)"
-    
-    if [[ $mtime1 -gt $mtime2 ]]; then
-        echo "  → $file1 es más reciente"
-    elif [[ $mtime2 -gt $mtime1 ]]; then
-        echo "  → $file2 es más reciente"
-    else
-        echo "  ✓ Misma fecha de modificación"
-    fi
-    
-    echo
-}
+echo "Comparando archivo1.txt y archivo2.txt:"
 
-# Usar la función
-compare_files "archivo1.txt" "archivo2.txt"
+# Tamaños
+echo "Tamaños:"
+stat -c '%s bytes' archivo1.txt archivo2.txt
+
+# Permisos
+echo "Permisos:"
+stat -c '%a (%A)' archivo1.txt archivo2.txt
+
+# Fechas de modificación
+echo "Modificación:"
+stat -c '%y' archivo1.txt archivo2.txt
+```
 ```
 
 ## **Análisis de Sistemas de Archivos**
