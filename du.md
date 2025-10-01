@@ -114,60 +114,20 @@ du -ah /etc
 ### **Encontrar Directorios Grandes**
 
 ```bash
-#!/bin/bash
-# Script para encontrar los directorios que más espacio ocupan
+# Encontrar los directorios que más espacio ocupan
 
-find_large_directories() {
-    local target_dir="${1:-.}"
-    local num_results="${2:-10}"
-    
-    echo "=== Top $num_results Directorios Más Grandes en $target_dir ==="
-    echo
-    
-    # Encontrar directorios grandes
-    du -h "$target_dir" 2>/dev/null | \
-    sort -hr | \
-    head -n "$num_results" | \
-    while read size path; do
-        printf "%-10s %s\n" "$size" "$path"
-    done
-    
-    echo
-    echo "=== Análisis por Nivel ==="
-    du -h --max-depth=1 "$target_dir" 2>/dev/null | \
-    sort -hr | \
-    head -n "$num_results"
-}
+# Top 10 directorios más grandes
+echo "=== Directorios Más Grandes ==="
+du -h . | sort -hr | head -10
 
-# Función para análisis del sistema completo
-analyze_system_space() {
-    echo "=== Análisis de Uso de Espacio del Sistema ==="
-    echo
-    
-    # Análisis de directorios principales
-    echo "📁 Directorios principales del sistema:"
-    du -sh /{bin,boot,dev,etc,home,lib,lib64,opt,root,sbin,srv,tmp,usr,var} 2>/dev/null | sort -hr
-    echo
-    
-    # Análisis de /home
-    if [[ -d /home ]]; then
-        echo "🏠 Análisis de /home:"
-        du -sh /home/* 2>/dev/null | sort -hr | head -10
-        echo
-    fi
-    
-    # Análisis de /var
-    echo "📊 Análisis de /var:"
-    du -sh /var/{cache,lib,log,spool,tmp} 2>/dev/null | sort -hr
-    echo
-    
-    # Análisis de /usr
-    echo "⚙️ Análisis de /usr:"
-    du -sh /usr/{bin,lib,lib64,share,src,local} 2>/dev/null | sort -hr
-    echo
-    
-    # Cache de pacman
-    if [[ -d /var/cache/pacman ]]; then
+# Análisis por nivel
+echo "=== Análisis por Nivel ==="
+du -h --max-depth=1 . | sort -hr
+
+# Análisis del sistema
+echo "=== Directorios Principales del Sistema ==="
+du -sh /{home,usr,var,opt} 2>/dev/null | sort -hr
+```
         echo "📦 Cache de Pacman:"
         du -sh /var/cache/pacman/pkg/
         echo "Número de paquetes en cache: $(ls /var/cache/pacman/pkg/*.pkg.tar.* 2>/dev/null | wc -l)"

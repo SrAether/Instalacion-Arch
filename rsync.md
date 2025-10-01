@@ -235,49 +235,24 @@ rsync -av --bwlimit=2000 --progress \
 ### **Script de Backup Incremental**
 
 ```bash
-#!/bin/bash
-# Script de backup incremental con rsync
+# Backup incremental simple con rsync
 
-BACKUP_SOURCE="/home/usuario"
-BACKUP_DEST="/backup"
+# Variables básicas
+SOURCE="/home/usuario"
+DEST="/backup"
 DATE=$(date +%Y%m%d)
-CURRENT_BACKUP="$BACKUP_DEST/current"
-DATED_BACKUP="$BACKUP_DEST/backup-$DATE"
 
-# Función de logging
-log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "/var/log/backup.log"
-}
+# Crear backup incremental
+echo "Iniciando backup..."
+rsync -av --delete "$SOURCE/" "$DEST/backup-$DATE/"
 
-# Crear backup incremental usando hard links
-create_incremental_backup() {
-    log "Iniciando backup incremental..."
-    
-    # Si existe backup actual, usar como base para hard links
-    if [[ -d "$CURRENT_BACKUP" ]]; then
-        rsync -av --delete --link-dest="$CURRENT_BACKUP" \
-            "$BACKUP_SOURCE/" "$DATED_BACKUP/" 2>&1 | tee -a "/var/log/backup.log"
-    else
-        rsync -av "$BACKUP_SOURCE/" "$DATED_BACKUP/" 2>&1 | tee -a "/var/log/backup.log"
-    fi
-    
-    if [[ $? -eq 0 ]]; then
-        # Actualizar enlace al backup actual
-        rm -f "$CURRENT_BACKUP"
-        ln -s "$DATED_BACKUP" "$CURRENT_BACKUP"
-        log "Backup completado exitosamente en $DATED_BACKUP"
-    else
-        log "ERROR: Backup falló"
-        return 1
-    fi
-}
-
-# Limpiar backups antiguos (mantener últimos 7)
-cleanup_old_backups() {
-    log "Limpiando backups antiguos..."
-    find "$BACKUP_DEST" -maxdepth 1 -name "backup-*" -type d -mtime +7 -exec rm -rf {} \;
-    log "Limpieza completada"
-}
+# Verificar resultado
+if [[ $? -eq 0 ]]; then
+    echo "✅ Backup completado en $DEST/backup-$DATE/"
+else
+    echo "❌ Backup falló"
+fi
+```
 
 # Verificar espacio disponible
 check_disk_space() {

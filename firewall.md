@@ -129,33 +129,23 @@ sudo ufw deny out 1194
 ### **Servidor Web Seguro**
 
 ```bash
-#!/bin/bash
 # Configuración de firewall para servidor web
 
 echo "=== Configurando Firewall para Servidor Web ==="
 
-# Resetear configuración
+# Resetear y configurar políticas básicas
 sudo ufw --force reset
-
-# Política por defecto
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
-# Permitir SSH desde red local únicamente
-sudo ufw allow from 192.168.1.0/24 to any port 22
-
-# Permitir HTTP y HTTPS desde cualquier lugar
-sudo ufw allow 80
-sudo ufw allow 443
-
-# Permitir ping (ICMP)
-sudo ufw allow in on any to any port 22 proto tcp
+# Permitir servicios esenciales
+sudo ufw allow 22     # SSH
+sudo ufw allow 80     # HTTP
+sudo ufw allow 443    # HTTPS
 
 # Habilitar firewall
 sudo ufw enable
-
-# Mostrar configuración
-sudo ufw status verbose
+sudo ufw status
 
 echo "✅ Firewall configurado para servidor web"
 ```
@@ -163,20 +153,15 @@ echo "✅ Firewall configurado para servidor web"
 ### **Estación de Trabajo Personal**
 
 ```bash
-#!/bin/bash
 # Configuración de firewall para uso personal
 
 echo "=== Configurando Firewall Personal ==="
 
-# Política restrictiva
+# Configuración básica
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
-# Permitir loopback (importante para aplicaciones locales)
-sudo ufw allow in on lo
-sudo ufw allow out on lo
-
-# Permitir SSH solo desde red local
+# Permitir SSH desde red local
 sudo ufw allow from 192.168.0.0/16 to any port 22
 
 # Permitir respuestas a conexiones establecidas

@@ -119,65 +119,22 @@ file -r /dev/sda1
 ### **Script de Análisis Completo de Directorio**
 
 ```bash
-#!/bin/bash
-# Script para análisis completo de tipos de archivo en un directorio
+# Análisis simple de tipos de archivo en un directorio
 
-analyze_directory_files() {
-    local target_dir="${1:-.}"
-    local output_file="/tmp/file_analysis_$(date +%Y%m%d_%H%M%S).txt"
-    
-    echo "=== Análisis Completo de Archivos en $target_dir ==="
-    echo "Reporte: $output_file"
-    echo
-    
-    # Crear reporte
-    {
-        echo "Análisis de Archivos - $(date)"
-        echo "Directorio: $target_dir"
-        echo "============================================"
-        echo
-    } > "$output_file"
-    
-    # Estadísticas generales
-    echo "📊 Estadísticas generales:" | tee -a "$output_file"
-    local total_files=$(find "$target_dir" -type f | wc -l)
-    local total_dirs=$(find "$target_dir" -type d | wc -l)
-    local total_links=$(find "$target_dir" -type l | wc -l)
-    
-    echo "  Archivos: $total_files" | tee -a "$output_file"
-    echo "  Directorios: $total_dirs" | tee -a "$output_file"
-    echo "  Enlaces simbólicos: $total_links" | tee -a "$output_file"
-    echo | tee -a "$output_file"
-    
-    # Análisis por tipo de archivo
-    echo "🗂️ Análisis por tipo de archivo:" | tee -a "$output_file"
-    
-    declare -A file_types
-    declare -A file_counts
-    declare -A mime_types
-    
-    find "$target_dir" -type f -print0 | while IFS= read -r -d '' filepath; do
-        # Obtener tipo de archivo
-        file_type=$(file -b "$filepath" 2>/dev/null | cut -d',' -f1)
-        mime_type=$(file --mime-type -b "$filepath" 2>/dev/null)
-        
-        # Contar tipos
-        file_types["$file_type"]=$((${file_types["$file_type"]} + 1))
-        mime_types["$mime_type"]=$((${mime_types["$mime_type"]} + 1))
-        
-        # Guardar información detallada
-        echo "$filepath|$file_type|$mime_type" >> "/tmp/detailed_analysis_$$"
-    done
-    
-    # Mostrar tipos más comunes
-    echo "Top 15 tipos de archivo:" | tee -a "$output_file"
-    if [[ -f "/tmp/detailed_analysis_$$" ]]; then
-        cut -d'|' -f2 "/tmp/detailed_analysis_$$" | sort | uniq -c | sort -nr | head -15 | \
-        while read count type; do
-            printf "  %5d archivos: %s\n" "$count" "$type"
-        done | tee -a "$output_file"
-    fi
-    echo | tee -a "$output_file"
+# Estadísticas generales
+echo "=== Análisis de Archivos ==="
+echo "Archivos: $(find . -type f | wc -l)"
+echo "Directorios: $(find . -type d | wc -l)"
+echo "Enlaces: $(find . -type l | wc -l)"
+
+# Tipos de archivo más comunes
+echo "=== Tipos de Archivo Más Comunes ==="
+find . -type f -exec file {} \; | cut -d: -f2 | sort | uniq -c | sort -nr | head -10
+
+# Tipos MIME
+echo "=== Tipos MIME ==="
+find . -type f -exec file --mime-type {} \; | cut -d: -f2 | sort | uniq -c | sort -nr | head -10
+```
     
     # Tipos MIME más comunes
     echo "🌐 Top 15 tipos MIME:" | tee -a "$output_file"
