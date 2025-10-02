@@ -230,7 +230,7 @@ cfdisk /dev/sda
 
 ## **Integración con Instalación de Arch**
 
-### **Flujo Completo de Instalación**
+### **Flujo Completo de Instalación con Btrfs**
 
 ```bash
 # 1. Verificar tipo de firmware
@@ -241,6 +241,59 @@ lsblk
 
 # 3. Particionar con cfdisk
 cfdisk /dev/sda
+# Crear: EFI (512M) + Swap (2G) + Root (resto)
+
+# 4. Verificar particiones creadas
+lsblk /dev/sda
+
+# 5. Formatear particiones
+mkfs.fat -F32 /dev/sda1      # EFI
+mkswap /dev/sda2             # Swap  
+mkfs.btrfs /dev/sda3         # Root con Btrfs
+
+# 6. Crear y Montar los Subvolúmenes (El Paso Clave):
+# Primero, montamos temporalmente toda la partición Btrfs para poder trabajar en ella
+mount /dev/sda3 /mnt
+
+# Dentro, creamos nuestros subvolúmenes. El @ es una convención común
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+
+# Ahora desmontamos la partición principal para volver a montar los subvolúmenes de la forma correcta para la instalación
+umount /mnt
+
+# Finalmente, montamos los subvolúmenes en sus destinos finales. Esta es la estructura que Arch Linux necesita
+mount -o noatime,compress=zstd,subvol=@ /dev/sda3 /mnt
+mkdir -p /mnt/home
+mount -o noatime,compress=zstd,subvol=@home /dev/sda3 /mnt/home
+
+# No olvides montar la partición EFI también:
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+
+# Activar swap
+swapon /dev/sda2
+
+# 7. Verificar estructura de montaje
+lsblk
+mount | grep /mnt
+
+# 8. Continuar instalación
+pacstrap /mnt base linux linux-firmware btrfs-progs
+```
+
+### **Flujo Completo de Instalación con ext4**
+
+```bash
+# 1. Verificar tipo de firmware
+ls /sys/firmware/efi/efivars  # UEFI si existe
+
+# 2. Identificar discos
+lsblk
+
+# 3. Particionar con cfdisk
+cfdisk /dev/sda
+# Crear: EFI (512M) + Swap (2G) + Root (resto)
 
 # 4. Verificar particiones creadas
 lsblk /dev/sda
@@ -248,16 +301,127 @@ lsblk /dev/sda
 # 5. Formatear particiones
 mkfs.fat -F32 /dev/sda1      # EFI
 mkswap /dev/sda2             # Swap
-mkfs.ext4 /dev/sda3          # Root
+mkfs.ext4 /dev/sda3          # Root con ext4
 
-# 6. Montar para instalación
-mount /dev/sda3 /mnt
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
-swapon /dev/sda2
+# 6. Montar particiones (ext4 - proceso tradicional)
+mount /dev/sda3 /mnt         # Montar raíz
+mkdir -p /mnt/boot/efi       # Crear directorio EFI
+mount /dev/sda1 /mnt/boot/efi # Montar EFI
+swapon /dev/sda2             # Activar swap
 
-# 7. Continuar instalación
+# 7. Verificar estructura de montaje
+lsblk
+mount | grep /mnt
+
+# 8. Continuar instalación
 pacstrap /mnt base linux linux-firmware
+```
+
+### **Comparación de Sistemas de Archivos**
+
+| Aspecto | Btrfs | ext4 |
+|---------|-------|------|
+| **Complejidad setup** | Alta (subvolúmenes) | Baja (directo) |
+| **Snapshots** | Nativo | No (requiere LVM) |
+| **Compresión** | Nativa (zstd, lzo) | No |
+| **Verificación datos** | Checksums automáticos | No |
+| **Flexibilidad** | Muy alta | Moderada |
+| **Estabilidad** | Buena (moderna) | Excelente (madura) |
+| **Rendimiento** | Bueno | Excelente |
+
+### **Ventajas Específicas de Cada Sistema**
+
+#### **Btrfs - Sistema Avanzado**
+```bash
+# Ventajas:
+# ✅ Snapshots antes de actualizaciones del sistema
+# ✅ Compresión transparente (ahorra espacio)
+# ✅ Verificación de integridad automática
+# ✅ Subvolúmenes para mejor organización
+# ✅ Redimensionado en línea
+# ✅ Múltiples dispositivos (RAID)
+
+# Ideal para:
+# - Usuarios avanzados que quieren snapshots
+# - Sistemas con espacio limitado (compresión)
+# - Workstations de desarrollo
+# - Servidores con alta disponibilidad
+```
+
+#### **ext4 - Sistema Tradicional**
+```bash
+# Ventajas:
+# ✅ Extremadamente estable y maduro
+# ✅ Excelente rendimiento
+# ✅ Amplio soporte en herramientas
+# ✅ Configuración simple
+# ✅ Menor overhead de CPU
+# ✅ Recuperación de datos más fácil
+
+# Ideal para:
+# - Nuevos usuarios de Linux
+# - Sistemas de producción críticos
+# - Hardware con recursos limitados
+# - Instalaciones simples y directas
+```
+
+### **Configuración Avanzada de Subvolúmenes Btrfs**
+
+```bash
+# Esquema avanzado con más subvolúmenes
+mount /dev/sda3 /mnt
+
+# Crear estructura completa de subvolúmenes
+btrfs subvolume create /mnt/@              # Raíz del sistema
+btrfs subvolume create /mnt/@home          # Directorio home
+btrfs subvolume create /mnt/@var           # Logs y bases de datos
+btrfs subvolume create /mnt/@tmp           # Archivos temporales
+btrfs subvolume create /mnt/@opt           # Software opcional
+btrfs subvolume create /mnt/@snapshots     # Directorio para snapshots
+
+umount /mnt
+
+# Montar subvolúmenes con opciones optimizadas
+mount -o noatime,compress=zstd,subvol=@ /dev/sda3 /mnt
+mkdir -p /mnt/{home,var,tmp,opt,.snapshots}
+mount -o noatime,compress=zstd,subvol=@home /dev/sda3 /mnt/home
+mount -o noatime,compress=zstd,subvol=@var /dev/sda3 /mnt/var
+mount -o noatime,compress=zstd,subvol=@tmp /dev/sda3 /mnt/tmp
+mount -o noatime,compress=zstd,subvol=@opt /dev/sda3 /mnt/opt
+mount -o noatime,compress=zstd,subvol=@snapshots /dev/sda3 /mnt/.snapshots
+
+# Montar EFI
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+```
+
+### **Opciones de Montaje Explicadas**
+
+#### **Opciones Btrfs**
+```bash
+# noatime: No actualizar tiempo de acceso (mejor rendimiento)
+# compress=zstd: Compresión automática con zstd (balance rendimiento/compresión)
+# compress=lzo: Compresión más rápida, menos eficiente
+# compress=zlib: Compresión más lenta, más eficiente
+# subvol=@: Especifica qué subvolumen montar
+# autodefrag: Desfragmentación automática
+# ssd: Optimizaciones para discos SSD
+```
+
+#### **Verificación de Montaje**
+```bash
+# Verificar que todo está montado correctamente
+echo "=== Estructura de Montaje ==="
+lsblk -f
+
+echo -e "\n=== Puntos de Montaje ==="
+mount | grep /mnt
+
+echo -e "\n=== Subvolúmenes Btrfs ==="
+btrfs subvolume list /mnt
+
+echo -e "\n=== Espacio Disponible ==="
+df -h /mnt
 ```
 
 ### **Verificación Post-Particionado**
@@ -276,6 +440,40 @@ ls /dev/sda*
 blkid /dev/sda1
 blkid /dev/sda2
 blkid /dev/sda3
+
+# Para Btrfs: verificar subvolúmenes
+if mount | grep -q btrfs; then
+    echo "=== Subvolúmenes Btrfs ==="
+    btrfs subvolume list /mnt
+fi
+```
+
+### **Troubleshooting Específico**
+
+#### **Problemas con Btrfs**
+```bash
+# Error: No se pueden crear subvolúmenes
+# Verificar que la partición está formateada como btrfs
+lsblk -f | grep btrfs
+
+# Error: Subvolumen ya existe
+# Eliminar subvolumen existente
+btrfs subvolume delete /mnt/@
+
+# Error: No se puede montar subvolumen
+# Verificar sintaxis de montaje
+mount -o subvol=@ /dev/sda3 /mnt  # Sin compress si hay problemas
+```
+
+#### **Problemas con ext4**
+```bash
+# Error: Sistema de archivos sucio
+# Verificar y reparar
+e2fsck -f /dev/sda3
+
+# Error: Partición no se puede montar
+# Verificar formato
+tune2fs -l /dev/sda3
 ```
 
 ## **Troubleshooting y Problemas Comunes**
