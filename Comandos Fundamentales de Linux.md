@@ -360,17 +360,17 @@ info comando         # Información detallada
 
 ## 📚 Secuencia de Aprendizaje Recomendada
 
-### Nivel Principiante (Día 1-3):
+### Nivel Principiante:
 1. [[pwd]], [[ls]], [[cd]] - Navegación básica
 2. [[whoami]], [[echo]] - Orientación en el sistema
 3. [[cat]], [[nano]] - Ver y editar archivos simples
 
-### Nivel Intermedio (Día 4-7):
+### Nivel Intermedio:
 4. [[mkdir]], [[touch]], [[cp]] - Gestión de archivos
 5. [[mv]], [[rm]] - Operaciones avanzadas (¡con cuidado!)
 6. [[less]], [[ping]] - Exploración y diagnóstico
 
-### Nivel Avanzado (Semana 2+):
+### Nivel Avanzado:
 7. [[Ruta absoluta]], [[Ruta relativa]] - Conceptos avanzados
 8. [[ip a]], [[nvim]] - Herramientas profesionales
 9. Combinación de comandos y scripts

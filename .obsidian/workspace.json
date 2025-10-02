@@ -4,115 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "d9a62ff633565792",
+        "id": "8b3fa48f842cfef0",
         "type": "tabs",
         "children": [
           {
-            "id": "ec5bdb1febde8d70",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Vista gráfica"
-            }
-          },
-          {
-            "id": "1057f962840c633a",
+            "id": "654a61fe5232733e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo.md",
+                "file": "Módulo 2 - El Terreno y los Planos (Particionado y Formateo).md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo"
-            }
-          },
-          {
-            "id": "0b19c115939fd92c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "git.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "git"
-            }
-          },
-          {
-            "id": "d271c737a0e35f6b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "genfstab.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "genfstab"
-            }
-          },
-          {
-            "id": "206a49d803c83449",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Módulo transitorio - el Plano de Construcción - Nuestro Viaje módulo a módulo"
-            }
-          },
-          {
-            "id": "01315360dcd2aeed",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tabla de particones.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Tabla de particones"
-            }
-          },
-          {
-            "id": "00b032b7fa947dc2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Sistema de archivos.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Sistema de archivos"
-            }
-          },
-          {
-            "id": "0c4a4a329368ce9a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Btrfs.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Btrfs"
+              "title": "Módulo 2 - El Terreno y los Planos (Particionado y Formateo)"
             }
           }
         ]
@@ -147,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "systemctl",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -276,15 +182,24 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "ec5bdb1febde8d70",
+  "active": "654a61fe5232733e",
   "lastOpenFiles": [
+    "Btrfs.md",
+    "Módulo 2 - El Terreno y los Planos (Particionado y Formateo).md",
+    "mkfs mkswap swapon.md",
+    "mkfs-mkswap-swapon.md",
+    "cfdisk.md",
+    "chmod.md",
+    "Módulo 1 - El Taller Temporal (El entorno en vivo).md",
+    "UEFI.md",
+    "fdisk.md",
+    "Sin título.base",
+    "Comandos Fundamentales de Linux.md",
     "rsync.md",
     "scp.md",
     "Ruta absoluta.md",
-    "Módulo 2 - El Terreno y los Planos (Particionado y Formateo).md",
     "stat.md",
     "firewall.md",
-    "Btrfs.md",
     "systemctl.md",
     "comm.md",
     "wc.md",
@@ -296,17 +211,8 @@
     "ss.md",
     "lsblk.md",
     "free.md",
-    "mount.md",
-    "jobs.md",
-    "kill.md",
-    "htop.md",
-    "top.md",
-    "file.md",
-    "du.md",
-    "sort.md",
     "Sin título.canvas",
     "Sin título 1.base",
-    "Sin título.base",
     "LICENSE",
     "Exportaciones/Virtualización en windows con VirtualBox.pdf",
     "Exportaciones/Virtualización en windows con Hyper-V.pdf",
